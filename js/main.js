@@ -68,7 +68,7 @@ function clearAllErrors() {
 }
 
 // Form submission
-contactForm.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearAllErrors();
     formSuccess.classList.remove('show');
@@ -106,15 +106,37 @@ contactForm.addEventListener('submit', (e) => {
         isValid = false;
     }
 
-    // If valid, show success message
+    // If valid, submit to Formspree
     if (isValid) {
-        formSuccess.classList.add('show');
-        contactForm.reset();
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
 
-        // Hide success message after 5 seconds
-        setTimeout(() => {
-            formSuccess.classList.remove('show');
-        }, 5000);
+        try {
+            const response = await fetch('https://formspree.io/info@vibeworks.ky', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ name, email, message })
+            });
+
+            if (response.ok) {
+                formSuccess.classList.add('show');
+                contactForm.reset();
+                setTimeout(() => {
+                    formSuccess.classList.remove('show');
+                }, 5000);
+            } else {
+                alert('Something went wrong. Please try again.');
+            }
+        } catch (error) {
+            alert('Something went wrong. Please try again.');
+        }
+
+        submitBtn.textContent = 'Send Message';
+        submitBtn.disabled = false;
     }
 });
 
