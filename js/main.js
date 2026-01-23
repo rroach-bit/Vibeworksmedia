@@ -113,7 +113,7 @@ contactForm.addEventListener('submit', async (e) => {
         submitBtn.disabled = true;
 
         try {
-            const response = await fetch('https://formspree.io/info@vibeworks.ky', {
+            const response = await fetch('https://formspree.io/f/xykenkoy', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
