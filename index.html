@@ -166,19 +166,19 @@
     color:#0A0A0C;
     overflow:hidden;
     white-space:nowrap;
-    padding:14px 0;
-    transform:skewY(-1.4deg);
-    margin:0 -2px;
+    padding:16px 0;
+    position:relative;
+    clip-path: polygon(0 12px, 100% 0, 100% calc(100% - 12px), 0 100%);
   }
   .ticker-track{
     display:inline-block;
     animation:ticker 26s linear infinite;
     font-family:'JetBrains Mono',monospace;
     font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;
-    transform:skewY(1.4deg);
+    will-change:transform;
   }
   .ticker-track span{margin:0 26px;}
-  @keyframes ticker{0%{transform:skewY(1.4deg) translateX(0);}100%{transform:skewY(1.4deg) translateX(-50%);}}
+  @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
   /* ===== SECTION shared ===== */
   section{padding:120px 0;position:relative;}
@@ -252,13 +252,15 @@
   .culture-tile{
     aspect-ratio:3/4;
     border:1px solid var(--ink-line);
-    background:linear-gradient(155deg,var(--ink-raised),var(--ink));
+    background:var(--ink-raised);
     display:flex;flex-direction:column;justify-content:flex-end;padding:18px;
     position:relative;overflow:hidden;
   }
-  .culture-tile::before{
+  .culture-tile svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .5s ease;}
+  .culture-tile:hover svg{transform:scale(1.04);}
+  .culture-tile::after{
     content:'';position:absolute;inset:0;
-    background:radial-gradient(circle at 30% 20%, rgba(124,58,237,0.22), transparent 60%);
+    background:linear-gradient(0deg, rgba(10,10,12,0.92) 0%, rgba(10,10,12,0.15) 55%, rgba(10,10,12,0.35) 100%);
   }
   .culture-tile span{
     position:relative;z-index:1;
@@ -505,10 +507,86 @@
         <p>A quick look at the formats we build most for clients across the islands.</p>
       </div>
       <div class="culture-grid">
-        <div class="culture-tile" data-reveal><span>Format 01</span><strong>Reels &amp; Shorts</strong></div>
-        <div class="culture-tile" data-reveal><span>Format 02</span><strong>Campaign Photography</strong></div>
-        <div class="culture-tile" data-reveal><span>Format 03</span><strong>Brand Identity</strong></div>
-        <div class="culture-tile" data-reveal><span>Format 04</span><strong>Paid Creative</strong></div>
+
+        <div class="culture-tile" data-reveal>
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="400" fill="#141317"/>
+            <rect width="300" height="400" fill="url(#g1)"/>
+            <defs>
+              <radialGradient id="g1" cx="70%" cy="20%" r="80%">
+                <stop offset="0%" stop-color="#7C3AED" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#141317" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect x="98" y="58" width="104" height="230" rx="14" fill="none" stroke="#3A3742" stroke-width="3"/>
+            <rect x="108" y="76" width="84" height="176" fill="#0A0A0C"/>
+            <polygon points="140,140 140,188 178,164" fill="#A78BFA"/>
+            <rect x="126" y="108" width="6" height="6" fill="#7C3AED"/>
+            <rect x="168" y="216" width="6" height="6" fill="#7C3AED"/>
+            <g stroke="#5C5B62" stroke-width="2">
+              <line x1="70" y1="150" x2="86" y2="150"/>
+              <line x1="66" y1="170" x2="86" y2="170"/>
+              <line x1="70" y1="190" x2="86" y2="190"/>
+              <line x1="214" y1="150" x2="230" y2="150"/>
+              <line x1="214" y1="170" x2="234" y2="170"/>
+              <line x1="214" y1="190" x2="230" y2="190"/>
+            </g>
+            <polygon points="0,400 90,400 40,340 0,340" fill="#7C3AED" fill-opacity="0.18"/>
+          </svg>
+          <span>Format 01</span><strong>Reels &amp; Shorts</strong>
+        </div>
+
+        <div class="culture-tile" data-reveal>
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="400" fill="#141317"/>
+            <polygon points="300,0 300,180 190,0" fill="#7C3AED" fill-opacity="0.16"/>
+            <rect x="70" y="150" width="160" height="112" rx="6" fill="none" stroke="#3A3742" stroke-width="3"/>
+            <rect x="118" y="126" width="64" height="30" rx="4" fill="#0A0A0C" stroke="#3A3742" stroke-width="3"/>
+            <circle cx="150" cy="206" r="42" fill="none" stroke="#A78BFA" stroke-width="3"/>
+            <circle cx="150" cy="206" r="24" fill="none" stroke="#7C3AED" stroke-width="3"/>
+            <circle cx="150" cy="206" r="8" fill="#A78BFA"/>
+            <rect x="196" y="168" width="10" height="10" fill="#7C3AED"/>
+            <path d="M20 300 L100 300 L70 400 L0 400 Z" fill="#7C3AED" fill-opacity="0.12"/>
+            <g stroke="#5C5B62" stroke-width="2">
+              <line x1="70" y1="150" x2="70" y2="130"/>
+              <line x1="230" y1="150" x2="230" y2="130"/>
+            </g>
+          </svg>
+          <span>Format 02</span><strong>Campaign Photography</strong>
+        </div>
+
+        <div class="culture-tile" data-reveal>
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="400" fill="#141317"/>
+            <polygon points="0,0 130,0 60,90 0,90" fill="#7C3AED" fill-opacity="0.14"/>
+            <g transform="translate(150,190)">
+              <polygon points="-70,-10 10,-70 70,-40 0,20" fill="#7C3AED" fill-opacity="0.85"/>
+              <polygon points="-60,20 20,-30 60,10 -10,60" fill="#A78BFA" fill-opacity="0.55"/>
+              <polygon points="-30,60 40,10 70,50 0,90" fill="#F5F3EF" fill-opacity="0.9"/>
+            </g>
+            <g stroke="#5C5B62" stroke-width="2" fill="none">
+              <circle cx="150" cy="190" r="118"/>
+            </g>
+            <polygon points="300,320 300,400 220,400" fill="#7C3AED" fill-opacity="0.12"/>
+          </svg>
+          <span>Format 03</span><strong>Brand Identity</strong>
+        </div>
+
+        <div class="culture-tile" data-reveal>
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="400" fill="#141317"/>
+            <polygon points="300,0 300,140 210,0" fill="#7C3AED" fill-opacity="0.18"/>
+            <polyline points="46,240 100,190 140,220 210,120" fill="none" stroke="#A78BFA" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/>
+            <polygon points="210,120 236,120 210,146" fill="#A78BFA"/>
+            <rect x="40" y="150" width="150" height="130" rx="4" fill="none" stroke="#3A3742" stroke-width="3" stroke-dasharray="6 6"/>
+            <rect x="60" y="260" width="72" height="22" rx="3" fill="#7C3AED"/>
+            <text x="66" y="275" font-family="JetBrains Mono, monospace" font-size="11" fill="#0A0A0C" font-weight="700">SPONSORED</text>
+            <path d="M220 230 l12 -12 l12 12 l-12 12 z" fill="#F5F3EF" fill-opacity="0.85"/>
+            <polygon points="0,340 90,400 0,400" fill="#7C3AED" fill-opacity="0.14"/>
+          </svg>
+          <span>Format 04</span><strong>Paid Creative</strong>
+        </div>
+
       </div>
     </div>
   </section>
